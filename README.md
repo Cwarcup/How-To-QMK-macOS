@@ -6,7 +6,7 @@ This guide is mostly for the peeps who want more customizability in configuring 
 
 ---
 
-## Instal qmk_toolbox\*\*
+## Instal qmk_toolbox
 
 For macOS, select the "QMK.Toolbox.pkg" from [here](https://github.com/qmk/qmk_toolbox/releases).
 
