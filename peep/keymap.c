@@ -48,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          RGB_M_P,
-        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_M_B,
-        _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            RGB_M_G,
-        _______, _______, RGB_VAD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
-        _______,          _______, _______, RGB_HUD, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            _______,
+        _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RGB_MOD, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
@@ -79,18 +79,18 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     switch(get_highest_layer(layer_state)){  // special handling per layer
             case 1:  //layer one
-                RGB_MATRIX_INDICATOR_SET_COLOR(7, 252, 0, 0); // 1 on off
-                RGB_MATRIX_INDICATOR_SET_COLOR(14, 255, 255, 255); // W brightness increase
-                RGB_MATRIX_INDICATOR_SET_COLOR(15, 184, 63, 212); // S brightness decrease
-                RGB_MATRIX_INDICATOR_SET_COLOR(21, 80, 212, 63); // D hue increase
-                RGB_MATRIX_INDICATOR_SET_COLOR(22, 80, 212, 63); // C hue decrease
-                RGB_MATRIX_INDICATOR_SET_COLOR(72, 0, 252, 50); // Del 
-                RGB_MATRIX_INDICATOR_SET_COLOR(75, 0, 252, 50); // PgUp
-                RGB_MATRIX_INDICATOR_SET_COLOR(86, 0, 252, 50); // PgDown
-                RGB_MATRIX_INDICATOR_SET_COLOR(94, 0, 252, 50); // Up change mode forward
-                RGB_MATRIX_INDICATOR_SET_COLOR(97, 0, 252, 50); // Down change mode backward
-                RGB_MATRIX_INDICATOR_SET_COLOR(95, 0, 252, 50); // left speed--
-                RGB_MATRIX_INDICATOR_SET_COLOR(79, 0, 252, 50); // right speed++
+                RGB_MATRIX_INDICATOR_SET_COLOR(7, 252, 0, 0); // 1 
+                RGB_MATRIX_INDICATOR_SET_COLOR(8, 255, 255, 255); // Q 
+                RGB_MATRIX_INDICATOR_SET_COLOR(9, 255, 255, 255); // A 
+                RGB_MATRIX_INDICATOR_SET_COLOR(14, 255, 255, 255); // W 
+                RGB_MATRIX_INDICATOR_SET_COLOR(15, 255, 255, 255); // S 
+                RGB_MATRIX_INDICATOR_SET_COLOR(20, 255, 255, 255); // E 
+                RGB_MATRIX_INDICATOR_SET_COLOR(21, 255, 255, 255); // D 
+                RGB_MATRIX_INDICATOR_SET_COLOR(55, 255, 255, 255); // Fn
+                RGB_MATRIX_INDICATOR_SET_COLOR(94, 255, 255, 255); // arrow Up
+                RGB_MATRIX_INDICATOR_SET_COLOR(97, 255, 255, 255); // arrow Down
+                RGB_MATRIX_INDICATOR_SET_COLOR(95, 255, 255, 255); // left speed--
+                RGB_MATRIX_INDICATOR_SET_COLOR(79, 255, 255, 255); // right speed++
                 break;
             default:
                 break;
