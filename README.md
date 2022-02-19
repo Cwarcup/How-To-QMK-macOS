@@ -1,25 +1,38 @@
-# GMMK Pro - QMK and VIA RGB Guide macOS
+# QMK and VIA RGB Guide macOS
 
 **0 responsibility on my part if you brick your board**
 
-This guide is mostly for the peeps who want more customizability in configuring their qmk map, if you just want to change rgb with keycodes you can use the [qmk configurator](https://config.qmk.fm/#/gmmk/pro/ansi/LAYOUT).
+Use this as a guide to configure your qmk map. Additionally if you just want to change rgb with keycodes you can use the [qmk configurator](https://config.qmk.fm/#/gmmk/pro/ansi/LAYOUT).
 
 ---
 
 ## Instal qmk_toolbox
 
-For macOS, select the "QMK.Toolbox.pkg" from [here](https://github.com/qmk/qmk_toolbox/releases).
+Download and install QMK [here](https://github.com/qmk/qmk_toolbox/releases). Don't select the pre-released public beta. Use the latest version and under the assets tab, download the file named "qmk_toolbox.pkg". This file is for macOS. The other files are for Windows machines. 
 
-In terminal:
+![qmk toolbox](/images/qmkToolbox.png)
+
+
+
+Once download is complete, launch terminal and enter the following command. If you don't know how to launch terminal, it can be found in Utility folder in Applications, or launch it by using spotlight.
 
 ```
 qmk setup
 ```
 
-Once the setup is complete, go to `C:\users\your username\qmk_firmware`. Do this in terminal.
+Once the setup is complete, go to `C:\users\your username\qmk_firmware`. Do this in terminal by entering `cd qmk_firmware`.
 
-Once you are in the `qmk_firmware` directory, end this into terminal.
+I recommend opening the file in Finder as well and double checking my board is compatible with QMK. This can be done by opening the `qmk_firmware` folder, going into `keyboards` and you should see your keyboard name listed here. 
 
+![qmk compatibility](/images/compat.png)
+
+Now back to terminal. Once you are in the `qmk_firmware` directory, enter this into terminal but **change the keyboard name, model and layout** (ANSI or ISO). You can double check you are in this directory by seeing what is before the `%` character. It should look like `<your user name on device> qmk_firmware %`.
+
+```
+qmk config user.keyboard=<YOUR KEYBOARD NAME>/<KEYBOARD MODEL>/<LAYOUT>
+```
+
+For me, I'm using a GMMK Pro, ANSI keyboard. My terminal command is:
 ```
 qmk config user.keyboard=gmmk/pro/ansi
 ```
@@ -36,23 +49,25 @@ It will look like nothing was done, but that is correct. We will now create a cu
 qmk config user.keymap=<your keymap name>
 ```
 
-For example, I renamed the folder to "peep", therefore I enter...
+For example, I renamed the folder to "noobs", therefore I enter...
 
 ```
-qmk config user.keymap=peep
+qmk config user.keymap=noobs
 ```
 
 ---
 
 ## Editing the Keymap
 
-Open the keymap folder you previously renamed. In my case, "peep".
+Open the keymap folder you previously renamed. In my case, "noobs".
 
 In that folder you will find a filed named `keymap.c`. DO NOT RENAME THIS.
 
 This is a file written in C and will be used to edit your keymap.
 
-Helpful keycodes can be found [here](https://docs.qmk.fm/#/keycodes)
+Now, you can use a fancy editor like Visual Studio Code, or just use the built in TextEdit application to open the `keymap.c`.
+
+When defining a keymap each key needs a valid key definition. Keycodes can be found [here](https://docs.qmk.fm/#/keycodes)
 
 Code for rotary encoders can be found [here](https://docs.splitkb.com/hc/en-us/articles/360010513760-How-can-I-use-a-rotary-encoder)
 
@@ -94,7 +109,7 @@ Code for rotary encoders can be found [here](https://docs.splitkb.com/hc/en-us/a
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______,                            _______,                            _______, MO(1),   _______, _______, _______, _______
-    ),                                                                                                     ^^layer switch
+    ),                                                                                                     ^^layer switch                       ^^last key
 
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
@@ -106,11 +121,32 @@ Code for rotary encoders can be found [here](https://docs.splitkb.com/hc/en-us/a
     ),                                                                                                     ^^transparant key
 ```
 
+Here is an example if what I used:
+
+```
+[0] = LAYOUT(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RALT, MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
+    [1] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            _______,
+        _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RGB_MOD, _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+    ),
+```
 As you can see the **last key** in the keymap does **NOT** require a comma at the end, please refrain from adding one as that tells the compiler that there's another key coming up!
 
 ### Rotary Knob
 
-Add the following code below the layouts section
+Add the following code **below** the layouts section. The code below will only change the volume and mute when pressed.
 
 ```
 #ifdef ENCODER_ENABLE
@@ -148,7 +184,7 @@ You can enter the values at **index, R, G, B** to target individual LEDs and the
 - index: index number used to target the LED.
 - R, G, B: change values to change color.
 
-Here is the layout of the leds (index numbers) on the board FOR ANSI:
+Here is the layout of the LEDs and their respective index numbers on the board FOR ANSI:
 
 ```
 // RGB LED layout
@@ -201,7 +237,7 @@ This is the **ISO map**:
 
 **Adding VIA support to your qmk keymap**
 
-Copy the file named `rules.mk` in the `qmk_firmware\keyboards\gmmk\pro\ansi` to the folder of the keymap you are making. In my case, to the folder name "peep". Remember, this is located in the `qmk_firmware\keyboards\gmmk\pro\ansi\keymaps` folder.
+Copy the file named `rules.mk` in the `qmk_firmware\keyboards\gmmk\pro\ansi` to the folder of the keymap you are making. In my case, to the folder name "noobs". Remember, this is located in the `qmk_firmware\keyboards\gmmk\pro\ansi\keymaps` folder.
 
 For ISO, `qmk_firmware\keyboards\gmmk\pro\iso`.
 
@@ -210,6 +246,8 @@ Add the following on the last line in the `rules.mk` file you copied to the fold
 ```
 VIA_ENABLE = yes
 ```
+
+![rules](/images/rules.png)
 
 ## Compile the Keymap
 
@@ -221,18 +259,18 @@ qmk compile
 
 It will compile the keymap and put it in the `qmk_firmware` folder.
 
-The new file will be called something like this: "gmmk_pro_ansi_peep.bin"
+The new file will be called something like this: "gmmk_pro_ansi_noobs.bin"
 
 ## Flashing the Keyboard
 
 Launch QMK Toolbox.
 
-Drag your newly created "gmmk_pro_ansi_peep.bin" into the input area beside the "open" button. This is the path to your ""gmmk_pro_ansi_peep.bin" file.
+Drag your newly created "gmmk_pro_ansi_noobs.bin" into the input area beside the "open" button. This is the path to your ""gmmk_pro_ansi_noobs.bin" file.
 
-Hold spacebar+b on your GMMK Pro while plugging in the usb c cable, this should put it into the bootloader mode.
+![qmk mac](/images/qmkmac.png)
+
+Hold spacebar+b on your GMMK Pro while plugging in the usb cable, this should put it into the bootloader mode. If that did not work, you can also try to hold ESC (top left corner) while plugging in the usb cable. You should see a message in the QMK Toolbox that indicates that your board is in STM DFU Bootloader Mode.
 
 Now click flash on the top right and it will start flashing the firmware onto the keyboard.
-
-It is very important that you do not change anything about the power or data delivery towards the keyboard until it is done flashing, so do not remove the cable, do not turn off your computer, do not flip the switch on your power strip, do not close the program etc.
 
 Done!
